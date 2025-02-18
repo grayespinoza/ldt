@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "look-down-transparency",
+  "version": "${version}",
+  "name": "Look Down Transparency",
+  "description": "...",
+  "authors": [
+    "eyeofgrey"
+  ],
+  "contact": {
+    "sources": "https://github.com/grayespinoza/ldt",
+    "issues": "https://github.com/grayespinoza/ldt/issues"
+  },
+  "license": "GPL-3.0-only",
+  "icon": "assets/look-down-transparency/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.heygrey.LookDownTransparency"
+    ]
+  },
+  "mixins": [
+    "look-down-transparency.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
