@@ -11,7 +11,7 @@
     "sources": "https://github.com/grayespinoza/ldt",
     "issues": "https://github.com/grayespinoza/ldt/issues"
   },
-  "license": "GPL-3.0-only",
+  "license": "LGPL-3.0-only",
   "icon": "assets/look-down-transparency/icon.png",
   "environment": "*",
   "entrypoints": {
