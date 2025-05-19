@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Continuous Integration
+
+#### GitHub Actions
+
+- Add dependabot by @**[grayespinoza](https://github.com/grayespinoza)**
+
 ### Continuous Delivery
 
 #### GitHub Actions
@@ -11,4 +17,5 @@
 ## New Contributors
 
 - @**[grayespinoza](https://github.com/grayespinoza)** made their first contribution
+- @**[github-actions[bot]](https://github.com/github-actions[bot])** made their first contribution
 
