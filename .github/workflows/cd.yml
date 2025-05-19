@@ -1,0 +1,33 @@
+name: CD
+on:
+  push:
+    branches: main
+
+jobs:
+  git-cliff:
+    name: Run git-cliff
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run git-cliff
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: .cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: docs/CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+      - name: Commit Changelog
+        run: |
+          git checkout main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          set +e
+          git add docs/CHANGELOG.md
+          git commit -m "docs: update Changelog"
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git main

@@ -1,0 +1,62 @@
+[changelog]
+header = """
+# Changelog\n
+"""
+body = """
+{% if version %}\
+  ## {{ version | trim_start_matches(pat="v") }} - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else %}\
+  ## Unreleased
+{% endif %}\
+
+{% for group, commits in commits | group_by(attribute="group") %}
+  ### {{ group | striptags | trim | upper_first }}
+  {% for group, commits in commits | group_by(attribute="scope") %}
+    #### {{ group | striptags | trim | upper_first }}
+    {% for commit in commits %}
+      - {{ commit.message | upper_first }}\
+        {% if commit.remote.username %} by @**[{{ commit.remote.username }}](https://github.com/{{ commit.remote.username }})**{%- endif %}\
+        {% if commit.remote.pr_number %} in #{{ commit.remote.pr_number }}{%- endif %}
+    {% endfor %}\
+  {% endfor %}\
+{% endfor %}\
+
+{% if github.contributors | filter(attribute="is_first_time", value=true) | length != 0 %}
+  ## New Contributors
+{% endif %}\
+{% for contributor in github.contributors | filter(attribute="is_first_time", value=true) %}
+  - @**[{{ contributor.username }}](https://github.com/{{ contributor.username }})** made their first contribution \
+    {%- if contributor.pr_number %} in
+      [#{{ contributor.pr_number }}]({{ self::remote_url() }}/pull/{{ contributor.pr_number }})
+    {%- endif %}\
+{%- endfor -%}
+"""
+footer = """
+\n
+"""
+trim = true
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+require_conventional = true
+split_commits = false
+commit_parsers = [
+  { message = "^feat", group = "<!-- A -->Features" },
+  { message = "^fix", group = "<!-- B -->Bug Fixes" },
+  { message = "^perf", group = "<!-- C -->Performance" },
+  { message = "^refactor", group = "<!-- D -->Refactor" },
+  { message = "^style", group = "<!-- E -->Styling" },
+  { message = "^test", group = "<!-- F -->Testing" },
+  { message = "^build", group = "<!-- G -->Build" },
+  { message = "^docs: update Changelog", skip = true },
+  { message = "^docs", group = "<!-- H -->Documentation", default_scope = "unscoped" },
+  { message = "^ci", group = "<!-- I -->Continuous Integration" },
+  { message = "^cd", group = "<!-- J -->Continuous Delivery" },
+  { message = "^chore\\(release\\): prepare for", skip = true },
+  { message = "^chore", group = "<!-- K -->Miscellaneous Tasks" },
+  { body = ".*security", group = "<!-- L -->Security" },
+]
+filter_commits = false
+topo_order = false
+sort_commits = "oldest"
