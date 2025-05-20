@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Build
+
+#### Gradle
+
+- Update Gradle by @**[grayespinoza](https://github.com/grayespinoza)**
+
 ### Continuous Integration
 
 #### GitHub Actions
