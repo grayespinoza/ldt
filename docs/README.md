@@ -2,7 +2,8 @@
 
 ## Dependencies
 **Required**:
-- None
+- [Fabric API](https://github.com/FabricMC/fabric)
+- [Cloth Config](https://github.com/shedaniel/cloth-config)
 
 **Optional**:
 - [Mod Menu](https://github.com/TerraformersMC/ModMenu)
@@ -10,7 +11,7 @@
 
 ## Downloads
 [![GitHub](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/github_vector.svg)](https://github.com/grayespinoza/ldt/releases)
-[![Modrinth](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/modrinth_vector.svg)]()
+[![Modrinth](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/ldt/versions)
 
 ## Reporting Issues
 Please use [GitHub Issues](https://github.com/grayespinoza/ldt/issues) to report bugs, crashes, and other issues.

@@ -42,7 +42,7 @@ filter_unconventional = true
 require_conventional = true
 split_commits = false
 commit_parsers = [
-  { message = "^feat", group = "<!-- A -->Features" },
+  { message = "^feat", group = "<!-- A -->Features", default_scope = "" },
   { message = "^fix", group = "<!-- B -->Bug Fixes" },
   { message = "^perf", group = "<!-- C -->Performance" },
   { message = "^refactor", group = "<!-- D -->Refactor" },
