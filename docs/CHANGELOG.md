@@ -1,6 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.4.0+1.21.5 - 2025-05-24
+
+### Features
+
+#### 
+
+- Initial release by @**[grayespinoza](https://github.com/grayespinoza)**
 
 ### Build
 
