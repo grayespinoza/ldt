@@ -3,7 +3,7 @@
   "id": "look-down-transparency",
   "version": "${version}",
   "name": "Look Down Transparency",
-  "description": "Player model transparency while looking down.",
+  "description": "Player model and armor transparency while looking down.",
   "authors": [
     "eyeofgrey"
   ],

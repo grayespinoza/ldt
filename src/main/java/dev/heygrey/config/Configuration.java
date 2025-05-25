@@ -24,6 +24,10 @@ public class Configuration implements ConfigData {
 
   @ConfigEntry.Category("Client")
   @ConfigEntry.Gui.Tooltip
+  public boolean affectsArmor = true;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
   public boolean affectsFirstPerson = true;
 
   @ConfigEntry.Category("Client")

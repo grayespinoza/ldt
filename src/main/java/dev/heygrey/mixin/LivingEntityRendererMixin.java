@@ -23,24 +23,24 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
   )
   private void wrapRender(M model, MatrixStack matrixStack, VertexConsumer vertexConsumer, int light, int overlay, int color, Operation<Void> original) {
     if (!(model instanceof PlayerEntityModel)) {
-      model.render(matrixStack, vertexConsumer, light, overlay, color);
+      original.call(model, matrixStack, vertexConsumer, light, overlay, color);
       return;
     }
     boolean isFirstPerson = MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
     float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
     if (pitch > Configuration.getInstance().initiatingAngle && isFirstPerson && Configuration.getInstance().affectsFirstPerson
         || pitch > Configuration.getInstance().initiatingAngle && !isFirstPerson && Configuration.getInstance().affectsThirdPerson) {
-      model.render(matrixStack, vertexConsumer, light, overlay, getColor(getAlpha(pitch), color));
+      original.call(model, matrixStack, vertexConsumer, light, overlay, getColor(getAlpha(pitch), color));
     } else {
-      model.render(matrixStack, vertexConsumer, light, overlay, color);
+      original.call(model, matrixStack, vertexConsumer, light, overlay, color);
     }
   }
 
-  public int getAlpha(float pitch) {
+  private int getAlpha(float pitch) {
     return (int) ((255 - Configuration.getInstance().terminalTransparency) * (1.0f - Math.pow(pitch / 90.0f, 2)) + Configuration.getInstance().terminalTransparency);
   }
 
-  public int getColor(int alpha, int color) {
+  private int getColor(int alpha, int color) {
     return (color & 0xFFFFFF) | (alpha << 24);
   }
 }
