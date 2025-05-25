@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.4.0+1.21.5 - 2025-05-24
+## 0.2.0+1.21.5 - 2025-05-25
+
+### Features
+
+#### 
+
+- Add armor transparency by @**[grayespinoza](https://github.com/grayespinoza)**
+## 0.1.0+1.21.5 - 2025-05-24
 
 ### Features
 
@@ -28,6 +35,6 @@
 
 ## New Contributors
 
-- @**[grayespinoza](https://github.com/grayespinoza)** made their first contribution
 - @**[github-actions[bot]](https://github.com/github-actions[bot])** made their first contribution
+- @**[grayespinoza](https://github.com/grayespinoza)** made their first contribution
 
