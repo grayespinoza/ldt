@@ -2,10 +2,7 @@
   "required": true,
   "package": "dev.heygrey.mixin",
   "compatibilityLevel": "JAVA_21",
-  "client": [
-    "ArmorFeatureRendererMixin",
-    "LivingEntityRendererMixin"
-  ],
+  "client": ["ArmorFeatureRendererMixin", "LivingEntityRendererMixin"],
   "injectors": {
     "defaultRequire": 1
   }

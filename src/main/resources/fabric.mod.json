@@ -4,9 +4,7 @@
   "version": "${version}",
   "name": "Look Down Transparency",
   "description": "Player model and armor transparency while looking down.",
-  "authors": [
-    "eyeofgrey"
-  ],
+  "authors": ["eyeofgrey"],
   "contact": {
     "homepage": "https://modrinth.com/mod/ldt",
     "sources": "https://github.com/grayespinoza/ldt",
@@ -16,16 +14,10 @@
   "icon": "assets/look-down-transparency/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": [
-      "dev.heygrey.LookDownTransparency"
-    ],
-    "modmenu": [
-      "dev.heygrey.config.ModMenuIntegration"
-    ]
+    "client": ["dev.heygrey.LookDownTransparency"],
+    "modmenu": ["dev.heygrey.config.ModMenuIntegration"]
   },
-  "mixins": [
-    "look-down-transparency.mixins.json"
-  ],
+  "mixins": ["look-down-transparency.mixins.json"],
   "depends": {
     "fabricloader": ">=0.16.14",
     "minecraft": "~1.21.5",
