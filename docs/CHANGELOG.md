@@ -3,6 +3,12 @@
 ## 0.2.1+1.21.5 - 2025-05-26
 
 ### Styling
+
+#### 
+
+- Add Prettier by @**[grayespinoza](https://github.com/grayespinoza)**
+
+- Format using google-java-format by @**[grayespinoza](https://github.com/grayespinoza)**
 ## 0.2.0+1.21.5 - 2025-05-25
 
 ### Features
