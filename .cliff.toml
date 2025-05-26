@@ -43,19 +43,19 @@ require_conventional = true
 split_commits = false
 commit_parsers = [
   { message = "^feat", group = "<!-- A -->Features", default_scope = "" },
-  { message = "^fix", group = "<!-- B -->Bug Fixes" },
-  { message = "^perf", group = "<!-- C -->Performance" },
-  { message = "^refactor", group = "<!-- D -->Refactor" },
-  { message = "^style", group = "<!-- E -->Styling" },
-  { message = "^test", group = "<!-- F -->Testing" },
-  { message = "^build", group = "<!-- G -->Build" },
+  { message = "^fix", group = "<!-- B -->Bug Fixes", default_scope = "" },
+  { message = "^perf", group = "<!-- C -->Performance", default_scope = "" },
+  { message = "^refactor", group = "<!-- D -->Refactor", default_scope = "" },
+  { message = "^style", group = "<!-- E -->Styling", default_scope = "" },
+  { message = "^test", group = "<!-- F -->Testing", default_scope = "" },
+  { message = "^build", group = "<!-- G -->Build", default_scope = "" },
   { message = "^docs: update Changelog", skip = true },
-  { message = "^docs", group = "<!-- H -->Documentation", default_scope = "unscoped" },
-  { message = "^ci", group = "<!-- I -->Continuous Integration" },
-  { message = "^cd", group = "<!-- J -->Continuous Delivery" },
+  { message = "^docs", group = "<!-- H -->Documentation", default_scope = "" },
+  { message = "^ci", group = "<!-- I -->Continuous Integration", default_scope = "" },
+  { message = "^cd", group = "<!-- J -->Continuous Delivery", default_scope = "" },
   { message = "^chore\\(release\\): prepare for", skip = true },
-  { message = "^chore", group = "<!-- K -->Miscellaneous Tasks" },
-  { body = ".*security", group = "<!-- L -->Security" },
+  { message = "^chore", group = "<!-- K -->Miscellaneous Tasks", default_scope = "" },
+  { body = ".*security", group = "<!-- L -->Security", default_scope = "" },
 ]
 filter_commits = false
 topo_order = false
