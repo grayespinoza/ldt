@@ -2,6 +2,7 @@ package dev.heygrey.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import dev.heygrey.config.Configuration;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
@@ -10,6 +11,7 @@ import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
+import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,25 +35,33 @@ public abstract class LivingEntityRendererMixin<
       int light,
       int overlay,
       int color,
-      Operation<Void> original) {
-    if (!(model instanceof PlayerEntityModel)) {
+      Operation<Void> original,
+      @Local(argsOnly = true) S state) {
+    if (!(model instanceof PlayerEntityModel)
+        || !(state instanceof PlayerEntityRenderState playerState)) {
+      original.call(model, matrixStack, vertexConsumer, light, overlay, color);
+      return;
+    }
+    float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
+    if (!(pitch > Configuration.getInstance().initiatingAngle)) {
+      original.call(model, matrixStack, vertexConsumer, light, overlay, color);
+      return;
+    }
+    boolean isSelf =
+        playerState.name.equals(MinecraftClient.getInstance().player.getName().getString());
+    if (!isSelf && !Configuration.getInstance().affectsAllPlayers) {
       original.call(model, matrixStack, vertexConsumer, light, overlay, color);
       return;
     }
     boolean isFirstPerson =
         MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
-    float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
-    if (pitch > Configuration.getInstance().initiatingAngle
-            && isFirstPerson
-            && Configuration.getInstance().affectsFirstPerson
-        || pitch > Configuration.getInstance().initiatingAngle
-            && !isFirstPerson
-            && Configuration.getInstance().affectsThirdPerson) {
-      original.call(
-          model, matrixStack, vertexConsumer, light, overlay, getColor(getAlpha(pitch), color));
-    } else {
+    if (isFirstPerson && !Configuration.getInstance().affectsFirstPerson
+        || !isFirstPerson && !Configuration.getInstance().affectsThirdPerson) {
       original.call(model, matrixStack, vertexConsumer, light, overlay, color);
+      return;
     }
+    original.call(
+        model, matrixStack, vertexConsumer, light, overlay, getColor(getAlpha(pitch), color));
   }
 
   private int getAlpha(float pitch) {
