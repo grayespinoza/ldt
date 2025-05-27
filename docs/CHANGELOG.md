@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.2.1+1.21.5 - 2025-05-26
+## 0.2.1+1.21.5 - 2025-05-27
+
+### Bug Fixes
+
+#### 
+
+- Make armor transparency only for players by @**[grayespinoza](https://github.com/grayespinoza)**
 
 ### Styling
 
