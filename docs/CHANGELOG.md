@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.2.1+1.21.5 - 2025-05-27
+## 0.3.0+1.21.5 - 2025-05-27
+
+### Features
+
+#### 
+
+- Add implementation of affectAllPlayers by @**[grayespinoza](https://github.com/grayespinoza)**
 
 ### Bug Fixes
 
