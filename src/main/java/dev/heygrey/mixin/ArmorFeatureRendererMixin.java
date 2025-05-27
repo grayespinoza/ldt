@@ -7,6 +7,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ArmorFeatureRenderer.class)
-public class ArmorFeatureRendererMixin<
+public abstract class ArmorFeatureRendererMixin<
     S extends BipedEntityRenderState,
     M extends BipedEntityModel<S>,
     A extends BipedEntityModel<S>> {
@@ -31,18 +32,20 @@ public class ArmorFeatureRendererMixin<
       float f,
       float g,
       CallbackInfo ci) {
-    boolean isFirstPerson =
-        MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
-    float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
-    if (pitch > Configuration.getInstance().initiatingAngle
-            && isFirstPerson
-            && Configuration.getInstance().affectsFirstPerson
-            && Configuration.getInstance().affectsArmor
-        || pitch > Configuration.getInstance().initiatingAngle
-            && !isFirstPerson
-            && Configuration.getInstance().affectsThirdPerson
-            && Configuration.getInstance().affectsArmor) {
-      ci.cancel();
+    if (bipedEntityRenderState instanceof PlayerEntityRenderState) {
+      float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
+      boolean isFirstPerson =
+          MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
+      if (pitch > Configuration.getInstance().initiatingAngle
+              && isFirstPerson
+              && Configuration.getInstance().affectsFirstPerson
+              && Configuration.getInstance().affectsArmor
+          || pitch > Configuration.getInstance().initiatingAngle
+              && !isFirstPerson
+              && Configuration.getInstance().affectsThirdPerson
+              && Configuration.getInstance().affectsArmor) {
+        ci.cancel();
+      }
     }
   }
 }

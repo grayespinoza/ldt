@@ -17,6 +17,14 @@
     "client": ["dev.heygrey.LookDownTransparency"],
     "modmenu": ["dev.heygrey.config.ModMenuIntegration"]
   },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.github_releases": "https://github.com/grayespinoza/ldt/releases",
+        "modmenu.modrinth": "https://modrinth.com/mod/ldt"
+      }
+    }
+  },
   "mixins": ["look-down-transparency.mixins.json"],
   "depends": {
     "fabricloader": ">=0.16.14",
