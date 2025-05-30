@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0+1.21.5 - 2025-05-30
+
+### Features
+
+#### 
+
+- Add toggle mod keybind by @**[grayespinoza](https://github.com/grayespinoza)**
 ## 0.3.0+1.21.5 - 2025-05-27
 
 ### Features
