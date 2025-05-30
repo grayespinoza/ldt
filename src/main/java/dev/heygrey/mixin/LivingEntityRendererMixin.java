@@ -30,8 +30,8 @@ public abstract class LivingEntityRendererMixin<
                   "Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;III)V"))
   private void wrapRender(
       M model,
-      MatrixStack matrixStack,
-      VertexConsumer vertexConsumer,
+      MatrixStack matrices,
+      VertexConsumer vertices,
       int light,
       int overlay,
       int color,
@@ -39,29 +39,32 @@ public abstract class LivingEntityRendererMixin<
       @Local(argsOnly = true) S state) {
     if (!(model instanceof PlayerEntityModel)
         || !(state instanceof PlayerEntityRenderState playerState)) {
-      original.call(model, matrixStack, vertexConsumer, light, overlay, color);
+      original.call(model, matrices, vertices, light, overlay, color);
+      return;
+    }
+    if (!Configuration.getInstance().modEnabled) {
+      original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
     float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
     if (!(pitch > Configuration.getInstance().initiatingAngle)) {
-      original.call(model, matrixStack, vertexConsumer, light, overlay, color);
+      original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
     boolean isSelf =
         playerState.name.equals(MinecraftClient.getInstance().player.getName().getString());
     if (!isSelf && !Configuration.getInstance().affectsAllPlayers) {
-      original.call(model, matrixStack, vertexConsumer, light, overlay, color);
+      original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
     boolean isFirstPerson =
         MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
     if (isFirstPerson && !Configuration.getInstance().affectsFirstPerson
         || !isFirstPerson && !Configuration.getInstance().affectsThirdPerson) {
-      original.call(model, matrixStack, vertexConsumer, light, overlay, color);
+      original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
-    original.call(
-        model, matrixStack, vertexConsumer, light, overlay, getColor(getAlpha(pitch), color));
+    original.call(model, matrices, vertices, light, overlay, getColor(getAlpha(pitch), color));
   }
 
   private int getAlpha(float pitch) {

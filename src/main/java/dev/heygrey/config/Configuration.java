@@ -10,6 +10,14 @@ import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 public class Configuration implements ConfigData {
   @ConfigEntry.Category("Client")
   @ConfigEntry.Gui.Tooltip
+  public boolean modEnabled = true;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
+  public boolean modEnabledAlert = true;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
   @ConfigEntry.BoundedDiscrete(min = 0, max = 77)
   public int terminalTransparency = 33;
 
