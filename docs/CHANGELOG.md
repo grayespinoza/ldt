@@ -2,6 +2,10 @@
 
 ## [0.4.1+1.21.5](https://github.com/grayespinoza/ldt/compare/0.4.0+1.21.5..0.4.1+1.21.5) - 2025-06-01
 
+### Build
+
+- *(Gradle)* Update artifact name - ([96f76ee](https://github.com/grayespinoza/ldt/commit/96f76ee2b40d0d81f2d19d512e2cb13d451ef1d1))
+
 ### Documentation
 
 - *(CHANGELOG)* Remove github-actions[bot] as new contributor - ([7f0fb78](https://github.com/grayespinoza/ldt/commit/7f0fb7829cb67b81bfa71ad93c9533d31196cb57))
