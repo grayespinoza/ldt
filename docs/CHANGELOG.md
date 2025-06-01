@@ -4,6 +4,7 @@
 
 ### Documentation
 
+- *(CHANGELOG)* Remove github-actions[bot] as new contributor - ([7f0fb78](https://github.com/grayespinoza/ldt/commit/7f0fb7829cb67b81bfa71ad93c9533d31196cb57))
 - *(CHANGELOG)* Replace contributor in commits with commit hash and link release comparisons - ([484edf7](https://github.com/grayespinoza/ldt/commit/484edf7621f8935071af3fdc8f81f2161d0cda89))
 ## [0.4.0+1.21.5](https://github.com/grayespinoza/ldt/compare/0.3.0+1.21.5..0.4.0+1.21.5) - 2025-05-30
 
@@ -49,6 +50,5 @@
 
 ## New Contributors
 
-- @**[github-actions[bot]](https://github.com/github-actions[bot])** made their first contribution
 - @**[grayespinoza](https://github.com/grayespinoza)** made their first contribution
 
