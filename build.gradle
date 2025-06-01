@@ -61,7 +61,11 @@ java {
 jar {
 	inputs.property "archivesName", project.base.archivesName
 
-	from("LICENSE") {
+	from("COPYING") {
+		rename { "${it}_${inputs.properties.archivesName}"}
+	}
+
+	from("COPYING.LESSER") {
 		rename { "${it}_${inputs.properties.archivesName}"}
 	}
 }
