@@ -1,35 +1,59 @@
+[remote.github]
+owner = "grayespinoza"
+repo  = "ldt"
+
 [changelog]
 header = """
 # Changelog\n
 """
 body = """
+{%- macro remote_url() -%}
+  https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
+{%- endmacro -%}
+
+{% macro print_commit(commit) -%}
+  - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
+    {% if commit.breaking %}[**breaking**] {% endif %}\
+    {{ commit.message | upper_first }} - \
+    ([{{ commit.id | truncate(length=7, end="") }}]({{ self::remote_url() }}/commit/{{ commit.id }}))\
+{% endmacro -%}
+
 {% if version %}\
-  ## {{ version | trim_start_matches(pat="v") }} - {{ timestamp | date(format="%Y-%m-%d") }}
+  {% if previous.version %}\
+    ## [{{ version }}]\
+      ({{ self::remote_url() }}/compare/{{ previous.version }}..{{ version }}) - {{ timestamp | date(format="%Y-%m-%d") }}
+  {% else %}\
+    ## {{ version }} - {{ timestamp | date(format="%Y-%m-%d") }}
+  {% endif %}\
 {% else %}\
   ## Unreleased
 {% endif %}\
 
 {% for group, commits in commits | group_by(attribute="group") %}
   ### {{ group | striptags | trim | upper_first }}
-  {% for group, commits in commits | group_by(attribute="scope") %}
-    #### {{ group | striptags | trim | upper_first }}
-    {% for commit in commits %}
-      - {{ commit.message | upper_first }}\
-        {% if commit.remote.username %} by @**[{{ commit.remote.username }}](https://github.com/{{ commit.remote.username }})**{%- endif %}\
-        {% if commit.remote.pr_number %} in #{{ commit.remote.pr_number }}{%- endif %}
-    {% endfor %}\
-  {% endfor %}\
-{% endfor %}\
+  {% for commit in commits
+  | filter(attribute="scope")
+  | sort(attribute="scope") %}
+    {{ self::print_commit(commit=commit) }}
+  {%- endfor %}
+  {% for commit in commits %}
+    {%- if not commit.scope -%}
+      {{ self::print_commit(commit=commit) }}
+    {% endif -%}
+  {% endfor -%}
+{% endfor -%}
 
+{%- if github -%}
 {% if github.contributors | filter(attribute="is_first_time", value=true) | length != 0 %}
   ## New Contributors
 {% endif %}\
 {% for contributor in github.contributors | filter(attribute="is_first_time", value=true) %}
   - @**[{{ contributor.username }}](https://github.com/{{ contributor.username }})** made their first contribution \
-    {%- if contributor.pr_number %} in
-      [#{{ contributor.pr_number }}]({{ self::remote_url() }}/pull/{{ contributor.pr_number }})
-    {%- endif %}\
+  {%- if contributor.pr_number %} in
+    [#{{ contributor.pr_number }}]({{ self::remote_url() }}/pull/{{ contributor.pr_number }})
+  {%- endif %}\
 {%- endfor -%}
+{%- endif %}
 """
 footer = """
 \n
@@ -42,21 +66,22 @@ filter_unconventional = true
 require_conventional = true
 split_commits = false
 commit_parsers = [
-  { message = "^feat", group = "<!-- A -->Features", default_scope = "" },
-  { message = "^fix", group = "<!-- B -->Bug Fixes", default_scope = "" },
-  { message = "^perf", group = "<!-- C -->Performance", default_scope = "" },
-  { message = "^refactor", group = "<!-- D -->Refactor", default_scope = "" },
-  { message = "^style", group = "<!-- E -->Styling", default_scope = "" },
-  { message = "^test", group = "<!-- F -->Testing", default_scope = "" },
-  { message = "^build", group = "<!-- G -->Build", default_scope = "" },
+  { message = "^feat", group = "<!-- A -->Features" },
+  { message = "^fix", group = "<!-- B -->Bug Fixes" },
+  { message = "^perf", group = "<!-- C -->Performance" },
+  { message = "^refactor", group = "<!-- D -->Refactor" },
+  { message = "^style", group = "<!-- E -->Styling" },
+  { message = "^test", group = "<!-- F -->Testing" },
+  { message = "^build", group = "<!-- G -->Build" },
   { message = "^docs: update Changelog", skip = true },
-  { message = "^docs", group = "<!-- H -->Documentation", default_scope = "" },
-  { message = "^ci", group = "<!-- I -->Continuous Integration", default_scope = "" },
-  { message = "^cd", group = "<!-- J -->Continuous Delivery", default_scope = "" },
+  { message = "^docs", group = "<!-- H -->Documentation" },
+  { message = "^ci", group = "<!-- I -->Continuous Integration" },
+  { message = "^cd", group = "<!-- J -->Continuous Delivery" },
   { message = "^chore\\(release\\): prepare for", skip = true },
-  { message = "^chore", group = "<!-- K -->Miscellaneous Tasks", default_scope = "" },
-  { body = ".*security", group = "<!-- L -->Security", default_scope = "" },
+  { message = "^chore", group = "<!-- K -->Miscellaneous Tasks" },
+  { body = ".*security", group = "<!-- L -->Security" },
 ]
+protect_breaking_commits = false
 filter_commits = false
 topo_order = false
-sort_commits = "oldest"
+sort_commits = "newest"
