@@ -1,12 +1,3 @@
 plugins {
   id "fabric-loom" version "${fabric_loom_version}" apply false
 }
-
-java_version = project.java_version
-license = project.license
-maven_group = project.maven_group
-minecraft_version = project.minecraft_version
-mod_author = project.mod_author
-mod_id = project.mod_id
-mod_name = project.mod_name
-mod_version = project.mod_version

@@ -74,16 +74,21 @@ jar {
 
 processResources {
   var expandProps = [
-    "mod_version"            : mod_version,
-    "maven_group"            : project.maven_group,
-    "minecraft_version"      : minecraft_version,
-    "fabric_version"         : fabric_version,
-    "fabric_loader_version"  : fabric_loader_version,
-    "mod_name"               : mod_name,
-    "mod_author"             : mod_author,
-    "mod_id"                 : mod_id,
-    "license"                : license,
-    "java_version"           : java_version
+    "java_version"         : java_version,
+    "license"              : license,
+    "maven_group"          : project.maven_group,
+    "minecraft_version"    : minecraft_version,
+    "mod_author"           : mod_author,
+    "mod_description"      : mod_description,
+    "mod_id"               : mod_id,
+    "mod_name"             : mod_name,
+    "mod_version"          : mod_version,
+    "cloth_config_version" : cloth_config_version,
+    "fabric_version"       : fabric_version,
+    "fabric_loader_version": fabric_loader_version,
+    "fabric_loom_version"  : fabric_loom_version,
+    "yarn_mappings"        : yarn_mappings,
+    "mod_menu_version"     : mod_menu_version
   ]
 
   var jsonExpandProps = expandProps.collectEntries {
