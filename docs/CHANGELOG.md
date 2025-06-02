@@ -1,6 +1,10 @@
 # Changelog
 
-## [0.4.1+1.21.5](https://github.com/grayespinoza/ldt/compare/0.4.0+1.21.5..0.4.1+1.21.5) - 2025-06-02
+## [0.5.0+1.21.5](https://github.com/grayespinoza/ldt/compare/0.4.0+1.21.5..0.5.0+1.21.5) - 2025-06-02
+
+### Features
+
+- Add 1.21.2-1.21.4 support - ([657dbee](https://github.com/grayespinoza/ldt/commit/657dbeeb4fe4450387d1b77ac3d43be5efbc0304))
 
 ### Refactor
 
