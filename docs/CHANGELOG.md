@@ -1,6 +1,10 @@
 # Changelog
 
-## [0.4.1+1.21.5](https://github.com/grayespinoza/ldt/compare/0.4.0+1.21.5..0.4.1+1.21.5) - 2025-06-01
+## [0.4.1+1.21.5](https://github.com/grayespinoza/ldt/compare/0.4.0+1.21.5..0.4.1+1.21.5) - 2025-06-02
+
+### Refactor
+
+- Restructure for multi-loader support - ([e18d5f5](https://github.com/grayespinoza/ldt/commit/e18d5f5547fb16b704e8d8525e2f84f363b325bb))
 
 ### Build
 
