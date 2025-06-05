@@ -3,7 +3,7 @@ package dev.heygrey.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.heygrey.config.Configuration;
+import dev.heygrey.config.LookDownTransparencyConfiguration;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -48,29 +48,29 @@ public abstract class ArmorFeatureRendererMixin<
       original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }
-    if (!Configuration.getInstance().modEnabled) {
+    if (!LookDownTransparencyConfiguration.getInstance().modEnabled) {
       original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }
     float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
-    if (!(pitch > Configuration.getInstance().initiatingAngle)) {
+    if (!(pitch > LookDownTransparencyConfiguration.getInstance().initiatingAngle)) {
       original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }
     boolean isSelf =
         playerState.name.equals(MinecraftClient.getInstance().player.getName().getString());
-    if (!isSelf && !Configuration.getInstance().affectsAllPlayers) {
+    if (!isSelf && !LookDownTransparencyConfiguration.getInstance().affectsAllPlayers) {
       original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }
-    if (!Configuration.getInstance().affectsArmor) {
+    if (!LookDownTransparencyConfiguration.getInstance().affectsArmor) {
       original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }
     boolean isFirstPerson =
         MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
-    if (isFirstPerson && !Configuration.getInstance().affectsFirstPerson
-        || !isFirstPerson && !Configuration.getInstance().affectsThirdPerson) {
+    if (isFirstPerson && !LookDownTransparencyConfiguration.getInstance().affectsFirstPerson
+        || !isFirstPerson && !LookDownTransparencyConfiguration.getInstance().affectsThirdPerson) {
       original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }

@@ -1,6 +1,6 @@
 package dev.heygrey;
 
-import dev.heygrey.config.Configuration;
+import dev.heygrey.config.LookDownTransparencyConfiguration;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -14,7 +14,7 @@ public class LookDownTransparency implements ClientModInitializer {
 
   @Override
   public void onInitializeClient() {
-    Configuration.init();
+    LookDownTransparencyConfiguration.init();
     toggleModEnabledKey =
         KeyBindingHelper.registerKeyBinding(
             new KeyBinding(
@@ -25,9 +25,9 @@ public class LookDownTransparency implements ClientModInitializer {
     ClientTickEvents.END_CLIENT_TICK.register(
         client -> {
           while (toggleModEnabledKey.wasPressed()) {
-            Configuration.getInstance().modEnabled = !Configuration.getInstance().modEnabled;
-            if (Configuration.getInstance().modEnabledAlert) {
-              if (Configuration.getInstance().modEnabled) {
+            LookDownTransparencyConfiguration.getInstance().modEnabled = !LookDownTransparencyConfiguration.getInstance().modEnabled;
+            if (LookDownTransparencyConfiguration.getInstance().modEnabledAlert) {
+              if (LookDownTransparencyConfiguration.getInstance().modEnabled) {
                 client.player.sendMessage(Text.literal("Look Down Transparency Enabled"), true);
               } else {
                 client.player.sendMessage(Text.literal("Look Down Transparency Disabled"), true);

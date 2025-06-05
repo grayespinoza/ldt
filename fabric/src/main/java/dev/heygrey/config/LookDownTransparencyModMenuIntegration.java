@@ -7,9 +7,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class ModMenuIntegration implements ModMenuApi {
+public class LookDownTransparencyModMenuIntegration implements ModMenuApi {
   @Override
   public ConfigScreenFactory<?> getModConfigScreenFactory() {
-    return parent -> AutoConfig.getConfigScreen(Configuration.class, parent).get();
+    return parent -> AutoConfig.getConfigScreen(LookDownTransparencyConfiguration.class, parent).get();
   }
 }

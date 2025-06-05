@@ -15,7 +15,9 @@
   "environment": "client",
   "entrypoints": {
     "client": ["dev.heygrey.LookDownTransparency"],
-    "modmenu": ["dev.heygrey.config.ModMenuIntegration"]
+    "modmenu": [
+      "dev.heygrey.config.LookDownTransparencyModMenuIntegration"
+    ]
   },
   "custom": {
     "modmenu": {

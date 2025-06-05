@@ -3,7 +3,7 @@ package dev.heygrey.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.heygrey.config.Configuration;
+import dev.heygrey.config.LookDownTransparencyConfiguration;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.VertexConsumer;
@@ -42,25 +42,25 @@ public abstract class LivingEntityRendererMixin<
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
-    if (!Configuration.getInstance().modEnabled) {
+    if (!LookDownTransparencyConfiguration.getInstance().modEnabled) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
     float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
-    if (!(pitch > Configuration.getInstance().initiatingAngle)) {
+    if (!(pitch > LookDownTransparencyConfiguration.getInstance().initiatingAngle)) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
     boolean isSelf =
         playerState.name.equals(MinecraftClient.getInstance().player.getName().getString());
-    if (!isSelf && !Configuration.getInstance().affectsAllPlayers) {
+    if (!isSelf && !LookDownTransparencyConfiguration.getInstance().affectsAllPlayers) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
     boolean isFirstPerson =
         MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
-    if (isFirstPerson && !Configuration.getInstance().affectsFirstPerson
-        || !isFirstPerson && !Configuration.getInstance().affectsThirdPerson) {
+    if (isFirstPerson && !LookDownTransparencyConfiguration.getInstance().affectsFirstPerson
+        || !isFirstPerson && !LookDownTransparencyConfiguration.getInstance().affectsThirdPerson) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
@@ -69,9 +69,9 @@ public abstract class LivingEntityRendererMixin<
 
   private int getAlpha(float pitch) {
     return (int)
-        ((255 - Configuration.getInstance().terminalTransparency)
+        ((255 - LookDownTransparencyConfiguration.getInstance().terminalTransparency)
                 * (1.0f - Math.pow(pitch / 90.0f, 2))
-            + Configuration.getInstance().terminalTransparency);
+            + LookDownTransparencyConfiguration.getInstance().terminalTransparency);
   }
 
   private int getColor(int alpha, int color) {

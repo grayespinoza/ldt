@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 
 @Config(name = "look-down-transparency")
-public class Configuration implements ConfigData {
+public class LookDownTransparencyConfiguration implements ConfigData {
   @ConfigEntry.Category("Client")
   @ConfigEntry.Gui.Tooltip
   public boolean modEnabled = true;
@@ -43,10 +43,10 @@ public class Configuration implements ConfigData {
   public boolean affectsThirdPerson = true;
 
   public static void init() {
-    AutoConfig.register(Configuration.class, Toml4jConfigSerializer::new);
+    AutoConfig.register(LookDownTransparencyConfiguration.class, Toml4jConfigSerializer::new);
   }
 
-  public static Configuration getInstance() {
-    return AutoConfig.getConfigHolder(Configuration.class).getConfig();
+  public static LookDownTransparencyConfiguration getInstance() {
+    return AutoConfig.getConfigHolder(LookDownTransparencyConfiguration.class).getConfig();
   }
 }
