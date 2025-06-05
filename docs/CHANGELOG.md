@@ -1,6 +1,11 @@
 # Changelog
 
-## [0.5.0+1.21.5](https://github.com/grayespinoza/ldt/compare/0.4.0+1.21.5..0.5.0+1.21.5) - 2025-06-02
+## [0.5.1+1.21.x](https://github.com/grayespinoza/ldt/compare/0.5.0+1.21.x..0.5.1+1.21.x) - 2025-06-05
+
+### Bug Fixes
+
+- Distinguish mod's config from others - ([8ba6243](https://github.com/grayespinoza/ldt/commit/8ba62439b77fc5d1286106b4f13562368a64ac1f))
+## [0.5.0+1.21.x](https://github.com/grayespinoza/ldt/compare/0.4.0+1.21.5..0.5.0+1.21.x) - 2025-06-02
 
 ### Features
 
