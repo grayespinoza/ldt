@@ -39,6 +39,7 @@ public abstract class LivingEntityRendererMixin<
       @Local(argsOnly = true) S state) {
     LookDownTransparencyConfiguration ldtConfiguration =
         LookDownTransparencyConfiguration.getInstance();
+    MinecraftClient client = MinecraftClient.getInstance();
 
     if (!ldtConfiguration.transparency) {
       original.call(model, matrices, vertices, light, overlay, color);
@@ -51,21 +52,19 @@ public abstract class LivingEntityRendererMixin<
       return;
     }
 
-    float pitch = MinecraftClient.getInstance().player.getPitch(1.0f);
+    float pitch = client.player.getPitch(1.0f);
     if (!(pitch > ldtConfiguration.initiatingAngle)) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
 
-    boolean isSelf =
-        playerState.name.equals(MinecraftClient.getInstance().player.getName().getString());
+    boolean isSelf = playerState.name.equals(client.player.getName().getString());
     if (!isSelf && !ldtConfiguration.affectsAllPlayers) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
 
-    boolean isFirstPerson =
-        MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
+    boolean isFirstPerson = client.options.getPerspective() == Perspective.FIRST_PERSON;
     if (isFirstPerson && !ldtConfiguration.affectsFirstPerson
         || !isFirstPerson && !ldtConfiguration.affectsThirdPerson) {
       original.call(model, matrices, vertices, light, overlay, color);
