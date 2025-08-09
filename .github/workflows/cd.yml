@@ -1,7 +1,8 @@
 name: CD
 on:
   push:
-    branches: main
+    tags:
+      - "*"
 
 jobs:
   git-cliff:
@@ -31,3 +32,59 @@ jobs:
           git add docs/CHANGELOG.md
           git commit -m "docs: update Changelog"
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git main
+  build:
+    name: Build JARs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "microsoft"
+      - name: Make Gradle Wrapper Executable
+        run: chmod +x ./gradlew
+      - name: Clean Build
+        run: ./gradlew clean build
+      - name: Upload Built JARs
+        uses: actions/upload-artifact@v4
+        with:
+          name: JARs
+          path: |
+            versions/**/build/libs/*.jar
+  mc-publish:
+    name: Release with mc-publish
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        game_version:
+          - "1.21.2"
+          - "1.21.3"
+          - "1.21.4"
+          - "1.21.5"
+          - "1.21.6"
+          - "1.21.7"
+          - "1.21.8"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Download Built JARs
+        uses: actions/download-artifact@v5
+        with:
+          name: JARs
+          path: versions/
+      - name: Publish on GitHub Releases and Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          version: ${{ github.ref_name }}+${{ matrix.game_version }}
+          files: |
+            versions/${{ matrix.game_version }}/build/libs/!(*-@(dev|javadoc|sources)).jar
+            versions/${{ matrix.game_version }}/build/libs/*-@(dev|javadoc|sources).jar
+          changelog-file: docs/CHANGELOG.md
+          retry-attempts: 6

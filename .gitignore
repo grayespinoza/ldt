@@ -1,22 +1,37 @@
-# gradle
+# Gradle
 
 .gradle/
 build/
 out/
 classes/
 
-# eclipse
+# Java
+
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr
+
+# Kotlin
+
+.kotlin
+
+# Minecraft
+
+run/
+
+# Eclipse
 
 *.launch
 
-# idea
+# IDEA
 
 .idea/
 *.iml
 *.ipr
 *.iws
 
-# vscode
+# VS Code
 
 .settings/
 .vscode/
@@ -24,18 +39,6 @@ bin/
 .classpath
 .project
 
-# macos
+# MacOS
 
 *.DS_Store
-
-# fabric
-
-run/
-runs/
-
-# java
-
-hs_err_*.log
-replay_*.log
-*.hprof
-*.jfr
