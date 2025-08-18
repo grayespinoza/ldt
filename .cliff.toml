@@ -48,7 +48,7 @@ body = """
   ## New Contributors\
 {% endif %}\
 {% for contributor in github.contributors | filter(attribute="is_first_time", value=true) %}
-  {% if contributor.username == "github-actions[bot]" %}\
+  {% if contributor.username == "github-actions[bot]" or contributor.username == "dependabot[bot]" %}\
   {% else %}\
     - @**[{{ contributor.username }}](https://github.com/{{ contributor.username }})** made their first contribution \
     {%- if contributor.pr_number %} in
