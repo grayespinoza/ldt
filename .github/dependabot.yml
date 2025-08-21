@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+      time: "12:00"
+      timezone: "US/Pacific"
     assignees:
       - "grayespinoza"
     commit-message:
