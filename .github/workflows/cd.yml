@@ -50,7 +50,7 @@ jobs:
       - name: Clean Build
         run: ./gradlew clean build
       - name: Upload Built JARs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: JARs
           path: |
