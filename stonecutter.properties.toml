@@ -1,0 +1,64 @@
+# See https://stonecutter.kikugie.dev/wiki/config/properties#centralized-properties
+mod.id = "look-down-transparency"
+mod.name = "Look Down Transparency"
+mod.group = "dev.heygrey"
+mod.version = "0.6.0"
+
+deps.fabric_loader = "0.20.1"
+loomx.loom_version = "1.19-SNAPSHOT"
+
+["1.21.2"]
+mod.mc_compat = "1.21.2"
+mod.mc_releases = ["1.21.2"]
+
+deps.fabric_api = "0.106.1+1.21.2"
+deps.cloth_config_version = "16.0.143"
+deps.mod_menu_version = "12.0.0"
+
+["1.21.3"]
+mod.mc_compat = "1.21.3"
+mod.mc_releases = ["1.21.3"]
+
+deps.fabric_api = "0.114.1+1.21.3"
+deps.cloth_config_version = "16.0.143"
+deps.mod_menu_version = "12.0.0"
+
+["1.21.4"]
+mod.mc_compat = "1.21.4"
+mod.mc_releases = ["1.21.4"]
+
+deps.fabric_api = "0.119.3+1.21.4"
+deps.cloth_config_version = "17.0.144"
+deps.mod_menu_version = "13.0.3"
+
+["1.21.5"]
+mod.mc_compat = "1.21.5"
+mod.mc_releases = ["1.21.5"]
+
+deps.fabric_api = "0.124.2+1.21.5"
+deps.cloth_config_version = "18.0.145"
+deps.mod_menu_version = "14.0.0-rc.2"
+
+["1.21.6"]
+mod.mc_compat = "1.21.6"
+mod.mc_releases = ["1.21.6"]
+
+deps.fabric_api = "0.128.2+1.21.6"
+deps.cloth_config_version = "19.0.147"
+deps.mod_menu_version = "15.0.0-beta.3"
+
+["1.21.7"]
+mod.mc_compat = "1.21.7"
+mod.mc_releases = ["1.21.7"]
+
+deps.fabric_api = "0.129.0+1.21.7"
+deps.cloth_config_version = "19.0.147"
+deps.mod_menu_version = "15.0.0-beta.3"
+
+["1.21.8"]
+mod.mc_compat = "1.21.8"
+mod.mc_releases = ["1.21.8"]
+
+deps.fabric_api = "0.129.0+1.21.8"
+deps.cloth_config_version = "19.0.147"
+deps.mod_menu_version = "15.0.0-beta.3"

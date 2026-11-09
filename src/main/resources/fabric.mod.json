@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "look-down-transparency",
-  "version": "${mod_version}",
+  "version": "${version}",
   "name": "Look Down Transparency",
-  "description": "${mod_description}",
+  "description": "Player model and armor transparency while looking down.",
   "authors": ["eyeofgrey"],
   "contact": {
     "homepage": "https://modrinth.com/mod/ldt",
     "sources": "https://github.com/grayespinoza/ldt",
     "issues": "https://github.com/grayespinoza/ldt/issues"
   },
-  "license": "${license}",
+  "license": "LGPL-3.0-only",
   "icon": "assets/look-down-transparency/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -27,10 +27,10 @@
   },
   "mixins": ["look-down-transparency.mixins.json"],
   "depends": {
-    "fabricloader": ">=${fabric_loader_version}",
-    "minecraft": "~${minecraft_version}",
-    "java": ">=${java_version}",
+    "fabricloader": ">=${loader}",
+    "minecraft": "${minecraft}",
     "fabric-api": "*",
+    "fabric-key-binding-api-v1": "*",
     "cloth-config": "*"
   },
   "suggests": {
