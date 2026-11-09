@@ -3,34 +3,36 @@ package dev.heygrey.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.heygrey.config.LookDownTransparencyConfiguration;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.Perspective;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.CameraType;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin<
-    T extends LivingEntity, S extends LivingEntityRenderState, M extends EntityModel<? super S>> {
+    T extends LivingEntity,
+    S extends LivingEntityRenderState,
+    M extends EntityModel<? super S>> {
   @WrapOperation(
       method =
-          "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
+          "render(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
       at =
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;III)V"))
+                  "Lnet/minecraft/client/model/EntityModel;renderToBuffer(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V"))
   private void wrapRender(
       M model,
-      MatrixStack matrices,
+      PoseStack matrices,
       VertexConsumer vertices,
       int light,
       int overlay,
@@ -39,20 +41,20 @@ public abstract class LivingEntityRendererMixin<
       @Local(argsOnly = true) S state) {
     LookDownTransparencyConfiguration ldtConfiguration =
         LookDownTransparencyConfiguration.getInstance();
-    MinecraftClient client = MinecraftClient.getInstance();
+    Minecraft client = Minecraft.getInstance();
 
     if (!ldtConfiguration.transparency) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
 
-    if (!(model instanceof PlayerEntityModel)
-        || !(state instanceof PlayerEntityRenderState playerState)) {
+    if (!(model instanceof PlayerModel)
+        || !(state instanceof PlayerRenderState playerState)) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
 
-    float pitch = client.player.getPitch(1.0f);
+    float pitch = client.player.getXRot(1.0f);
     if (!(pitch > ldtConfiguration.initiatingAngle)) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
@@ -64,7 +66,7 @@ public abstract class LivingEntityRendererMixin<
       return;
     }
 
-    boolean isFirstPerson = client.options.getPerspective() == Perspective.FIRST_PERSON;
+    boolean isFirstPerson = client.options.getCameraType() == CameraType.FIRST_PERSON;
     if (isFirstPerson && !ldtConfiguration.affectsFirstPerson
         || !isFirstPerson && !ldtConfiguration.affectsThirdPerson) {
       original.call(model, matrices, vertices, light, overlay, color);
