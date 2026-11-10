@@ -1,12 +1,13 @@
+---
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: /
     schedule:
-      interval: "daily"
+      interval: semiannually
       time: "12:00"
-      timezone: "US/Pacific"
+      timezone: America/Los_Angeles
     assignees:
       - "grayespinoza"
     commit-message:
-      prefix: "github-actions"
+      prefix: chore
